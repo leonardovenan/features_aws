@@ -26,4 +26,15 @@ figura = plt.figure(figsize=(20,20))
 sns.heatmap(base_casas.corr(), annot=True);
 
 #Pré-Processamento dos dados
+base_casas.columns
+#o objetivo desse algoritmo é prever o preço das casas, sendo assim:
+#tirando as colunas de id, data e price
+X = base_casas.iloc[:, 3:19].values
+y = base_casas.iloc[:, 2].values
 
+X = np.array(X).astype('float32')
+y = np.array(y).astype('float32')
+
+#divindo base de dados para aprendizado e testes:
+from sklearn.model_selection import train_test_split
+X_treinamento, X_teste, y_treinamento, y_teste = train_test_split(X, y, test_size = 0.3, random_state=0)
