@@ -8,4 +8,11 @@ import numpy as np
 
 #carregando database
 base_casas = pd.read_csv('house_prices.csv')
+#visualização geral dos dados
 base_casas
+#apenas colunas
+base_casas.columns
+#estatisticas gerais em relação aos dados
+base_casas.describe()
+#tratamento de colunas nulas
+base_casas.isnull()
