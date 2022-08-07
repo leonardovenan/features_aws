@@ -21,7 +21,8 @@ caminho = "s3://{}/{}".format(bucket, subpasta)
 #print(caminho)
 
 #identificando o arquivo
-s3_upload = S3Uploader.upload("nome do arquivo com extensão.exe")
+s3_upload = S3Uploader.upload("nome do arquivo com extensão.exe", caminho)
+print(s3_upload)
 
 #Segundo -> download
 import boto3
