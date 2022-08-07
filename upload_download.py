@@ -4,4 +4,17 @@ from sagemaker.s3 import S3Uploader
 
 session = boto3.Session()
 
-session.region_name
+#verificação de região
+#session.region_name
+
+#creando bucket e fazendo upload de aplicação
+bucket = 'nome-do-bucket'
+session.client('s3').create_bucket(Bucket = bucket,
+                                  CreateBucketConfiguration={"LocationConstraint": session.region_name})
+
+#subpasta dentro do bucket
+subpasta = "arquivos"
+#caminho dos arquivos para upload
+#padrão de envio é "s3://{nome do bucket}/{nome da pasta}"
+caminho = "s3://{}/{}".format{bucket, subpasta}
+#print(caminho)
