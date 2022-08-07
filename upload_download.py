@@ -17,7 +17,7 @@ session.client('s3').create_bucket(Bucket = bucket,
 subpasta = "arquivos"
 #caminho dos arquivos para upload
 #padrão de envio é "s3://{nome do bucket}/{nome da pasta}"
-caminho = "s3://{}/{}".format{bucket, subpasta}
+caminho = "s3://{}/{}".format(bucket, subpasta)
 #print(caminho)
 
 #identificando o arquivo
