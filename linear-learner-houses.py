@@ -67,7 +67,18 @@ buffer = io.BytesIO()
 smac.write_numpy_to_dense_tensor(buffer, X_treinamento, y_treinamento) #transformação de numpy para dense que é utilizado no AWS
 buffer.seek(0) #colocar a base de dados na posição inicial considerando o primeiro registro
 
-#enviar código para o S3
+#enviar dados de forma binária para o AWS S3
 import os
 key = 'houses-train-data'
 boto3.resource('s3').Bucket(bucket).Object(os.path.join(subpasta_dataset, 'train', key)).upload_fileobj(buffer)
+# os.path.join(subpasta_dataset, 'train', key) -> concatenação do caminho
+
+#caminho específico para a base de treino
+s3_train_data = 's3://{}/{}/train'.format(bucket, subpasta_dataset, key)
+print('Localização da base de treinamento: {}'.format(s3_train_data))
+
+#local onde vamos salvar o modelo treinado
+output_location = 's3://{}/{}/output'.format(bucket, subpasta_modelo)
+print('Modelo final será salvo em: {}'.format(output_location))
+
+
