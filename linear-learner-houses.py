@@ -15,4 +15,15 @@ base_casas.columns
 #estatisticas gerais em relação aos dados
 base_casas.describe()
 #tratamento de colunas nulas
-base_casas.isnull()
+base_casas.isnull().sum()
+
+#VISUALIZAÇÃO DOS DADOS
+#correlão de um atribuito com os outros, bem importante para problemas de regressão
+#quanto mais próximo de 1 mais correção existe
+base_casas.corr()
+
+figura = plt.figure(figsize=(20,20))
+sns.heatmap(base_casas.corr(), annot=True);
+
+#Pré-Processamento dos dados
+
