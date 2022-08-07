@@ -38,3 +38,36 @@ y = np.array(y).astype('float32')
 #divindo base de dados para aprendizado e testes:
 from sklearn.model_selection import train_test_split
 X_treinamento, X_teste, y_treinamento, y_teste = train_test_split(X, y, test_size = 0.3, random_state=0)
+#atributos previsores
+X_treinamento.shape, X_teste.shape
+#alvo -> previsão
+y_treinamento.shape, y_teste.shape
+
+#normalização de dados é importante.
+
+#Configurações do SageMaker:
+
+import sagemaker
+import boto3
+from sagemaker import Session
+
+session = sagemaker.Session()
+bucket = "nome-do-bucket"
+subpasta_modelo = 'modelos/house-prices/linear-learner'
+subpasta_dataset = 'datasets/houses-prices'
+
+#buscar quais são as permissões do sagemaker
+role = sagemaker.get_execution_role()
+print(role)
+#conversão da base de dados
+import io
+import sagemaker.amazon.common as smac #sagemaker common library
+
+buffer = io.BytesIO()
+smac.write_numpy_to_dense_tensor(buffer, X_treinamento, y_treinamento) #transformação de numpy para dense que é utilizado no AWS
+buffer.seek(0) #colocar a base de dados na posição inicial considerando o primeiro registro
+
+#enviar código para o S3
+import os
+key = 'houses-train-data'
+boto3.resource('s3').Bucket(bucket).Object(os.path.join(subpasta_dataset, 'train', key)).upload_fileobj(buffer)
